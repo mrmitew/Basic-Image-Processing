@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/vg_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFEBEE"
+            android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_original"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:layout_gravity="center"
+            android:background="@drawable/card"
+            android:padding="28dp"/>
+
+        <ImageView
+            android:id="@+id/iv_out1"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:layout_gravity="center"
+            android:background="@drawable/card"
+            android:padding="28dp"/>
+
+        <ImageView
+            android:id="@+id/iv_out2"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:layout_gravity="center"
+            android:background="@drawable/card"
+            android:padding="28dp"/>
+
+        <ImageView
+            android:id="@+id/iv_out3"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:layout_gravity="center"
+            android:background="@drawable/card"
+            android:padding="28dp"/>
+
+        <ImageView
+            android:id="@+id/iv_out4"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:layout_gravity="center"
+            android:background="@drawable/card"
+            android:padding="28dp"/>
+
+        <ImageView
+            android:id="@+id/iv_out5"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:layout_gravity="center"
+            android:background="@drawable/card"
+            android:padding="28dp"/>
+
+        <ImageView
+            android:id="@+id/iv_out6"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:layout_gravity="center"
+            android:background="@drawable/card"
+            android:padding="28dp"/>
+    </LinearLayout>
+</ScrollView>

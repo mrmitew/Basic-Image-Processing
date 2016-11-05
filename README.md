@@ -28,8 +28,6 @@ There are quite a few, but non of them were absolutely necessary for the purpose
 * E-mail: mr.mitew [at] gmail . com
 * [Github issues](https://github.com/mrmitew/Basic-Image-Processing/issues)
 
-* [Github issues](https://github.com/mrmitew/BasicImageProcessing/issues)
-
 ## Changelog
 ### 1.0.0
 * Initial version

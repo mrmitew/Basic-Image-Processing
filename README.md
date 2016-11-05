@@ -16,3 +16,7 @@ The main purpose of this app is to showcase a very basic implementation of sever
 * Author: Stefan Mitev
 * E-mail: mr.mitew [at] gmail . com
 * [Github issues](https://github.com/mrmitew/BasicImageProcessing/issues)
+
+## Changelog
+### 1.0.0
+* Initial version

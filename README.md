@@ -7,6 +7,8 @@ This open-source application aims at demonstrating:
 * how to call some of the Android NDK APIs
 * how to call into methods of a native library via a Java Native Interface
 
+You can either build it yourself or download it from the Google Play Store: https://play.google.com/store/apps/details?id=com.stetcho.basicimageprocessing
+
 ## Dependencies
 There are quite a few, but non of them were absolutely necessary for the purpose of this app since they were used mostly for convenience.
 * Retrolambda

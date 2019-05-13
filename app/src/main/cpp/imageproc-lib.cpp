@@ -51,18 +51,24 @@ void Java_com_stetcho_basicimageprocessing_MainActivity_naToGrayscale(JNIEnv *en
         line = (uint32_t *) srcPixels;
 
         for (w = 0; w < srcInfo.width; w++) {
-            // extract the RGB values from the pixel
+            // Extract the RGB values from the pixel
+            // We achieve that by using a bitwise operations and bit masking to indicate which bits we are instersted in
+            // Then we shift the value to get the red and green colours.
+            // For the blue, thats not necessary because it is stored already in the most significant byte.
             red = (int) ((line[w] & 0x00FF0000) >> 16);
             green = (int) ((line[w] & 0x0000FF00) >> 8);
             blue = (int) (line[w] & 0x00000FF);
 
+            // Calculate a gray scale for the given RGB values
+            // Formula taken from: https://www.stemmer-imaging.com/en-nl/knowledge-base/grey-level-grey-value/
             gray = 0.299 * red + 0.587 * green + 0.114 * blue;
 
             red = gray;
             green = gray;
             blue = gray;
 
-            // set the new pixel back in
+            // Replace the original pixel data with the new one.
+            // We have to bitshift the values in the opposite direction to do so.
             line[w] =
                     ((red << 16) & 0x00FF0000) |
                     ((green << 8) & 0x0000FF00) |
@@ -98,6 +104,7 @@ void Java_com_stetcho_basicimageprocessing_MainActivity_naToBlackWhite(JNIEnv *e
     int w, h, red, green, blue;
     uint32_t *line;
 
+    // Gray threshold. If a pixel is greater than this, it will become white, otherwise black.
     int threshold = 150;
     int gray;
 
@@ -106,12 +113,18 @@ void Java_com_stetcho_basicimageprocessing_MainActivity_naToBlackWhite(JNIEnv *e
 
         for (w = 0; w < srcInfo.width; w++) {
             // extract the RGB values from the pixel
+            // We achieve that by using a bitwise operations and bit masking to indicate which bits we are instersted in
+            // Then we shift the value to get the red and green colours.
+            // For the blue, thats not necessary because it is stored already in the most significant byte.
             red = (int) ((line[w] & 0x00FF0000) >> 16);
             green = (int) ((line[w] & 0x0000FF00) >> 8);
             blue = (int) (line[w] & 0x00000FF);
 
+            // Calculate a gray scale for the given RGB values
+            // Formula taken from: https://www.stemmer-imaging.com/en-nl/knowledge-base/grey-level-grey-value/
             gray = 0.299 * red + 0.587 * green + 0.114 * blue;
 
+            // Make the pixel black or white, based on the threshold value
             if (gray > threshold) {
                 gray = 255;
             } else {
@@ -122,7 +135,8 @@ void Java_com_stetcho_basicimageprocessing_MainActivity_naToBlackWhite(JNIEnv *e
             green = gray;
             blue = gray;
 
-            // set the new pixel back in
+            // Replace the original pixel data with the new one.
+            // We have to bitshift the values in the opposite direction to do so.
             line[w] =
                     ((red << 16) & 0x00FF0000) |
                     ((green << 8) & 0x0000FF00) |
@@ -163,17 +177,21 @@ void Java_com_stetcho_basicimageprocessing_MainActivity_naSetBrightness(JNIEnv *
         line = (uint32_t *) srcPixels;
 
         for (w = 0; w < srcInfo.width; w++) {
-            // extract the RGB values from the pixel
+            // Extract the RGB values from the pixel
+            // We achieve that by using a bitwise operations and bit masking to indicate which bits we are instersted in
+            // Then we shift the value to get the red and green colours.
+            // For the blue, thats not necessary because it is stored already in the most significant byte.
             red = (int) ((line[w] & 0x00FF0000) >> 16);
             green = (int) ((line[w] & 0x0000FF00) >> 8);
             blue = (int) (line[w] & 0x00000FF);
 
-            // manipulate each value
+            // manipulate each RGB channel with the brightness value, passed from Java code
             red = rgb_clamp((int) (red * brightnessValue));
             green = rgb_clamp((int) (green * brightnessValue));
             blue = rgb_clamp((int) (blue * brightnessValue));
 
-            // set the new pixel back in
+            // Replace the original pixel data with the new one.
+            // We have to bitshift the values in the opposite direction to do so.
             line[w] =
                     ((red << 16) & 0x00FF0000) |
                     ((green << 8) & 0x0000FF00) |
@@ -189,6 +207,7 @@ void Java_com_stetcho_basicimageprocessing_MainActivity_naSetGaussianBlur(JNIEnv
                                                                          jclass clazz,
                                                                          jobject pSrcBitmap,
                                                                          jobject pOutBitmap) {
+    // Create a kernal, that will be used for blurring the pixels.
     float matrix[3][3] = {
             {0.0625, 0.125, 0.0625},
             {0.125,  0.25,  0.125},
@@ -228,6 +247,9 @@ void Java_com_stetcho_basicimageprocessing_MainActivity_naSetGaussianBlur(JNIEnv
     malPixels = malloc(sizeof(unsigned char) * 4 * srcInfo.width * srcInfo.height);
     tmpPixels = malPixels;
 
+    // Apply the blur for each pixel, using the kernal from above, by traversing all rows and columns of pixels in the image
+    // and also the matrix for each pixel.
+    
     int i;
     for (i = 0; i < 10; i++) {
         for (h = 0; h < srcInfo.height; ++h) {

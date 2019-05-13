@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
                         new BitmapFactory.Options());
         mIvOriginal.setImageBitmap(src);
 
+        // FIXME: RxJava streams are not disposed.
+        
         Single<Bitmap> b1 =
                 Single.defer((Func0<Single<Bitmap>>) () ->
                         Single.create((Single.OnSubscribe<Bitmap>) singleSubscriber -> {
